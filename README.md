@@ -1,1 +1,1 @@
-# Azure-Data-Engineering-E2E-ADF-ADB-UnityCatalog-MedallionArchitecture
+# Comprehensive Azure Data Engineering Project E2E-ADF-ADB-UnityCatalog-Medallion Architecture
