@@ -1,1 +1,1 @@
-# Comprehensive Azure Data Engineering Project E2E-ADF-ADB-UnityCatalog-Medallion Architecture
+# Comprehensive Azure Data Engineering Project E2E-ADF-ADB-UnityCatalog-Medallion Architecture, Dynamic ETL Pipelines, Encremental loading, Slowly Changing Dimensions, Star Schema Data Model (Fact Table), Surrogate Keys in Data Warehouse
