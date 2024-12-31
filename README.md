@@ -1,4 +1,4 @@
-# **Comprehensive Azure Data Engineering Project E2E-ADF-ADB-Unity Catalog**
+# **Azure Data Engineering Project E2E-ADF-ADB-Unity Catalog**
 
 ## **Business Scenario**
 
