@@ -101,7 +101,8 @@ Converted data into Parquet and Delta formats for optimized storage and querying
 Managed governance policies and role-based access control with Unity Catalog.
 
 Incorporated data validation and audit mechanisms to ensure integrity.
-![adb_unity_catalog](https://github.com/user-attachments/assets/f2308b2f-ae4e-487f-afb3-23a51966b955)
+![adb_unity_catalog](https://github.com/user-attachments/assets/4d8081c0-1333-4ff7-84aa-528db00a73fa)
+
 
 
 **7. Visualization**
