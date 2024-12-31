@@ -88,7 +88,7 @@ Utilized Unity Catalog for managing data governance policies and role-based acce
 
 Incorporated data validation and audit mechanisms to ensure data integrity.
 
-**10. Visualization**
+**7. Visualization**
 
 Integrated the Gold Layer data with Power BI to create dashboards and visualizations.
 
