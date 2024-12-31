@@ -1,110 +1,123 @@
-# Comprehensive Azure Data Engineering Project E2E-ADF-ADB
+# **Comprehensive Azure Data Engineering Project E2E-ADF-ADB**
 
-**Business Overview**
+## **Business Scenario**
 
-This project showcased the design and implementation of a robust, production-ready data pipeline utilizing Azure’s Medallion Architecture. The pipeline integrated a sample dataset of car sales from the Tableau Server Guru website, which was subsequently uploaded to my GitHub repository. By leveraging Azure services, the project ensured seamless data ingestion, transformation, and storage, while strictly adhering to contemporary data governance and quality standards.
+The project demonstrated the design and implementation of a robust, production-ready data pipeline using Azure’s Medallion Architecture. It utilized a sample car sales dataset from the Tableau Server Guru website, which was uploaded to my GitHub repository. By leveraging Azure services, the pipeline ensured seamless data ingestion, transformation, and storage, adhering to contemporary data governance and quality standards. The goal was to provide analytics-ready data for business insights.
 
-**Aim**
+## **Business Requirements**
 
-The project aimed to implement a scalable and automated data pipeline to process raw sales data and deliver it as high-quality, analytics-ready data. The final deliverable included a robust infrastructure supporting data transformation and visualization, aligned with real-world business needs.
+Ingest car sales data from my GitHub repository into Azure SQL Database.
 
-**Tech Stack**
+Transform raw data to meet analytics requirements by structuring it into fact and dimension tables.
 
-Programming: SQL, Python
+Implement Medallion Architecture to ensure traceability, quality, and scalability.
 
-Azure Services:
+Store the final transformed data in optimized formats for analysis.
 
-Azure SQL Database: Data storage and processing
+Visualize key metrics like sales trends and revenue performance using Power BI.
 
-Azure Data Factory: Orchestration and automation of ETL workflows
+## **Deliverables**
 
-Azure Data Lake Storage Gen2: Organized data storage using the Medallion Architecture
+Python Scripts: For data transformation and storage.
 
-Azure Databricks: Advanced data processing and dimensional modeling
+Processed Data: High-quality datasets in Parquet and Delta formats.
 
-Unity Catalog: Data governance and access control
+Power BI Dashboards: Insights into sales trends and revenue.
 
-Power BI: Visualization and reporting
+## **Specification Details**
 
-File Formats: CSV, Parquet, and Delta
+Dataset: Car sales data with attributes such as Branch ID, Dealer ID, Model ID, Revenue, Units Sold, and Date ID.
 
-**Data Description**
+![data description](https://github.com/user-attachments/assets/6ff7a295-62c9-4ad1-b00c-5544cd64607f)
 
-The dataset comprised sales data extracted from my GitHub repository, containing multiple attributes:
+## **Project Architecture**
 
-Branch ID, Dealer ID, Model ID: Identifiers for organizational hierarchies
-Revenue, Units Sold: Business metrics
-Date ID: A unique identifier for transactional timestamps
+The project followed the Medallion Architecture with distinct Bronze, Silver, and Gold layers, ensuring traceability and analytics-readiness.
+Pipeline Logic: Integrated incremental loading with parameterized SQL queries and dynamic configurations.
 
-**Approach**
+![Project flows](https://github.com/user-attachments/assets/da68a311-7a72-441c-9b9f-b65a753854bb)
 
-**1. Environment Setup:**
-   
-Set up a Resource Group in my Azure account for organizing all project resources.
 
-Configured Azure Data Lake Storage Gen2 with hierarchical namespace for optimal data management.
+## **Steps to Complete the Project**
 
-Established an Azure SQL Database as the central storage and processing hub, secured with appropriate firewall rules.
+**1. Environment Setup**
+
+Created a Resource Group in Azure for project resources.
+
+Configured Azure Data Lake Storage Gen2 with a hierarchical namespace for data organization.
+
+Established Azure SQL Database as the central processing hub and secured it with firewall rules.
+![project resources](https://github.com/user-attachments/assets/bd6dc041-5dc2-4201-94cd-fc0c0ad0387f)
+
 
 **2. Data Ingestion**
 
-Extracted sales data from my GitHub repository.
+Extracted sales data from the GitHub repository.
 
 Loaded the data into Azure SQL Database using Azure Data Factory’s Copy Activity.
 
-Ensured flexibility in the data pipeline by utilizing dynamic datasets and parameterized configurations.
+Utilized dynamic datasets and parameterized configurations for flexibility.
+![adf_pl_2](https://github.com/user-attachments/assets/d4f3b894-1174-4257-8012-138ebd4ca252)
+
 
 **3. Medallion Architecture Implementation**
 
-Bronze Layer: Raw data stored as-is for traceability.
+Bronze Layer: Stored raw data as-is for traceability.
 
-Silver Layer: Transformed and cleaned data ready for analysis.
+Silver Layer: Cleaned and standardized data for analytical use.
+![adb-data-analytics](https://github.com/user-attachments/assets/9a871fb6-327e-43c8-aae5-301996eb9281)
 
-Gold Layer: Aggregated data structured into a star schema for efficient querying.
+
+Gold Layer: Aggregated data into a star schema for efficient querying.
+![gold layer](https://github.com/user-attachments/assets/3a1afa1e-ca0d-4aa9-8dcc-308426f6234b)
+
 
 **4. Incremental Data Loading**
 
-Watermark Table: Maintained in Azure SQL Database to track the last processed date for incremental updates.
+Created a watermark table in Azure SQL Database to track the last processed date.
 
-**Pipeline Logic:**
+Implemented pipeline logic with:
 
-Created a Lookup Activity to retrieve the last processed date.
+Lookup Activity: Retrieved the last processed date.
 
-Used parameterized SQL queries to fetch only new or updated records.
+Parameterized SQL Queries: Fetched only new or updated records.
 
-Updated the watermark table dynamically after successful pipeline runs.
+Stored Procedure Activity: Dynamically updated the watermark table post-pipeline execution.
+![adf_pl_succeeded](https://github.com/user-attachments/assets/44a97126-31ca-4019-a8d7-87d671a11507)
+
 
 **5. Data Transformation**
 
 Split data into fact and dimension tables using Azure Databricks.
 
-Implemented Slowly Changing Dimensions (SCD Type 1) to manage updates efficiently.
+Implemented Slowly Changing Dimensions (SCD Type 1) for effective data updates.
 
-Converted data to Parquet and Delta formats for optimized storage and querying.
+Converted data into Parquet and Delta formats for optimized storage and querying.
+![adb_pl_data_model](https://github.com/user-attachments/assets/76edcb70-2bc6-474c-a76c-1f02ab5f7e36)
+
 
 **6. Data Governance and Access Control**
 
-Utilized Unity Catalog for managing data governance policies and role-based access control.
+Managed governance policies and role-based access control with Unity Catalog.
 
-Incorporated data validation and audit mechanisms to ensure data integrity.
+Incorporated data validation and audit mechanisms to ensure integrity.
+![adb_unity_catalog](https://github.com/user-attachments/assets/f2308b2f-ae4e-487f-afb3-23a51966b955)
+
 
 **7. Visualization**
 
-Integrated the Gold Layer data with Power BI to create dashboards and visualizations.
+Integrated Gold Layer data with Power BI for dashboards.
 
-Delivered insights into key metrics such as sales trends and revenue performance.
+Delivered insights into sales trends and revenue performance.
 
 **Key Takeaways**
 
-Mastered tools like Azure Data Factory, SQL Database, and Databricks.
+Tool Proficiency: Gained expertise with Azure Data Factory, Databricks, and SQL Database.
 
-Production-Ready Pipelines:
+Scalable Pipelines: Designed automated workflows to minimize manual intervention.
 
-Designed automated pipelines to minimize manual intervention and ensure scalability.
+Dimensional Modeling: Implemented a star schema and handled slowly changing dimensions effectively.
 
-Dimensional Modeling Expertise:
+Visualization: Created interactive dashboards in Power BI.
 
-Implemented a star schema and handled slowly changing dimensions effectively.
-
-This project underscores my ability to independently design and implement scalable data engineering workflows, proving my readiness for dynamic and challenging roles in the industry.
-
+This project underscores my ability to independently design and implement scalable data engineering workflows, showcasing my readiness for dynamic and challenging roles in the industry.
