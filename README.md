@@ -1,214 +1,110 @@
 # Comprehensive Azure Data Engineering Project E2E-ADF-ADB
 
-End-to-End Azure Data Engineering Project Documentation
+**Business Overview**
 
-Project Overview
+This project showcased the design and implementation of a robust, production-ready data pipeline utilizing Azure’s Medallion Architecture. The pipeline integrated a sample dataset of car sales from the Tableau Server Guru website, which was subsequently uploaded to my GitHub repository. By leveraging Azure services, the project ensured seamless data ingestion, transformation, and storage, while strictly adhering to contemporary data governance and quality standards.
 
-This project demonstrated the creation of a production-ready, end-to-end data pipeline using Azure's modern data engineering tools and techniques. Following the Medallion Architecture, the project addressed critical data engineering challenges such as incremental data loading, dimensional modeling (star schema), and handling slowly changing dimensions. It incorporated essential elements of data governance, quality checks, and access control to produce a scalable and robust solution.
+**Aim**
 
-Tools and Technologies Used
+The project aimed to implement a scalable and automated data pipeline to process raw sales data and deliver it as high-quality, analytics-ready data. The final deliverable included a robust infrastructure supporting data transformation and visualization, aligned with real-world business needs.
 
-Data Sources: GitHub Repository (CSV Files)
+**Tech Stack**
+
+Programming: SQL, Python
 
 Azure Services:
 
-Azure SQL Database: Storing transactional and dimensional data.
+Azure SQL Database: Data storage and processing
 
-Azure Data Factory: Orchestrating data pipelines for automated ETL.
+Azure Data Factory: Orchestration and automation of ETL workflows
 
-Azure Data Lake: Providing the foundation for the Medallion Architecture.
+Azure Data Lake Storage Gen2: Organized data storage using the Medallion Architecture
 
-Azure Databricks: Performing data transformation and advanced analytics.
+Azure Databricks: Advanced data processing and dimensional modeling
 
-Unity Catalog: Managing data governance and access control.
+Unity Catalog: Data governance and access control
 
-File Formats: CSV, Parquet, and Delta for efficient processing.
+Power BI: Visualization and reporting
 
-Automation Features: Stored Procedures, Lookup Activities, and Scheduled Triggers.
+File Formats: CSV, Parquet, and Delta
 
-Project Workflow
+**Data Description**
 
-1. Environment Setup
+The dataset comprised sales data extracted from my GitHub repository, containing multiple attributes:
+
+Branch ID, Dealer ID, Model ID: Identifiers for organizational hierarchies
+Revenue, Units Sold: Business metrics
+Date ID: A unique identifier for transactional timestamps
+
+**Approach**
+
+**1. Environment Setup:**
    
-Azure Account Creation:
+Set up a Resource Group in my Azure account for organizing all project resources.
 
-A free Azure account was created with $200 credits to build the project resources.
+Configured Azure Data Lake Storage Gen2 with hierarchical namespace for optimal data management.
 
-All resources were grouped under a single Resource Group for organized management.
+Established an Azure SQL Database as the central storage and processing hub, secured with appropriate firewall rules.
 
-Resource Configuration:
+**2. Data Ingestion**
 
-Azure Data Lake: Configured with a hierarchical namespace for data storage.
+Extracted sales data from my GitHub repository.
 
-Azure SQL Database: Established as the source and target for data ingestion.
+Loaded the data into Azure SQL Database using Azure Data Factory’s Copy Activity.
 
-Firewall Rules: Configured to allow access from Azure services.
+Ensured flexibility in the data pipeline by utilizing dynamic datasets and parameterized configurations.
 
-3. Data Ingestion
-   
-Source Data:
+**3. Medallion Architecture Implementation**
 
-Sales data in CSV format was sourced from a GitHub repository.
+Bronze Layer: Raw data stored as-is for traceability.
 
-The data was divided into initial and incremental batches.
+Silver Layer: Transformed and cleaned data ready for analysis.
 
-Initial Load:
+Gold Layer: Aggregated data structured into a star schema for efficient querying.
 
-Azure Data Factory was used to transfer data from GitHub to Azure SQL Database.
+**4. Incremental Data Loading**
 
-A Copy Activity was configured with dynamic datasets to enable flexibility and reusability.
+Watermark Table: Maintained in Azure SQL Database to track the last processed date for incremental updates.
 
-5. Medallion Architecture Implementation
-   
-Bronze Layer:
+**Pipeline Logic:**
 
-Raw data was loaded into the Azure Data Lake.
+Created a Lookup Activity to retrieve the last processed date.
 
-This layer stored untransformed data for traceability.
+Used parameterized SQL queries to fetch only new or updated records.
 
-Silver Layer:
+Updated the watermark table dynamically after successful pipeline runs.
 
-Data was cleaned and transformed into a more usable format.
+**5. Data Transformation**
 
-Columns were standardized, and null values were handled.
+Split data into fact and dimension tables using Azure Databricks.
 
-Gold Layer:
+Implemented Slowly Changing Dimensions (SCD Type 1) to manage updates efficiently.
 
-Aggregated data was stored in a star schema structure.
+Converted data to Parquet and Delta formats for optimized storage and querying.
 
-Fact and dimension tables were created for analytical purposes.
+**6. Data Governance and Access Control**
 
-7. Incremental Data Loading
-   
-Watermark Table:
+Utilized Unity Catalog for managing data governance policies and role-based access control.
 
-A watermark table was created in Azure SQL Database to track the last processed date.
+Incorporated data validation and audit mechanisms to ensure data integrity.
 
-Incremental Pipeline:
+**10. Visualization**
 
-The pipeline dynamically fetched only new or updated records.
+Integrated the Gold Layer data with Power BI to create dashboards and visualizations.
 
-A Lookup Activity retrieved the last processed date from the watermark table.
+Delivered insights into key metrics such as sales trends and revenue performance.
 
-A Stored Procedure Activity updated the watermark table after each successful run.
+**Key Takeaways**
 
-Automation:
+Mastered tools like Azure Data Factory, SQL Database, and Databricks.
 
-Scheduled triggers ensured the pipeline ran daily without manual intervention.
+Production-Ready Pipelines:
 
-9. Data Transformation
-    
-Dimensional Modeling:
+Designed automated pipelines to minimize manual intervention and ensure scalability.
 
-Data was split into fact and dimension tables for analytical efficiency.
+Dimensional Modeling Expertise:
 
-Surrogate keys were generated, and Slowly Changing Dimensions (SCD Type 1) were handled.
+Implemented a star schema and handled slowly changing dimensions effectively.
 
-File Format Optimization:
-
-Data was converted to Parquet and Delta formats for improved performance.
-
-Delta Table Features:
-
-Features like versioning and time travel were implemented to enhance data management.
-
-11. Data Governance and Access Control
-    
-Unity Catalog:
-
-Enforced governance policies to manage data access.
-
-Role-based access controls ensured security compliance.
-
-Data Quality Checks:
-
-Validation steps were incorporated to ensure data integrity at every stage.
-
-13. Visualization
-    
-Power BI Integration:
-
-Connected the Gold Layer data to Power BI for creating interactive dashboards.
-
-Enabled business users to visualize insights and trends from the sales data.
-
-Azure Data Factory Pipelines
-
-Pipeline 1: Initial Load Pipeline
-
-Objective: Transfer all historical data from the GitHub repository to Azure SQL Database.
-
-Configuration:
-
-Linked Services:
-
-Connected the pipeline to GitHub (source) and Azure SQL Database (destination).
-
-Copy Activity:
-
-Dynamically mapped source data to the target schema.
-
-Outcome:
-
-Successfully loaded all historical data into the database.
-
-Pipeline 2: Incremental Load Pipeline
-
-Objective: Process only new or updated data after the initial load.
-
-Configuration:
-
-Dynamic Parameters:
-
-Start and end dates were passed as parameters for flexible pipeline runs.
-
-Stored Procedures:
-
-Updated the watermark table with the latest processed date.
-
-Automation:
-
-Scheduled triggers ensured the pipeline executed daily without intervention.
-
-Outcome:
-
-Seamless incremental updates maintained database consistency.
-
-Project Outcomes
-
-Comprehensive Data Pipeline:
-
-Delivered a robust, production-ready solution with minimal manual intervention.
-
-Proficiency with Azure Tools:
-
-Demonstrated expertise in Azure Data Factory, SQL Database, and Databricks.
-
-Scalable Architecture:
-
-Built a pipeline that adhered to the Medallion Architecture, ensuring modularity and scalability.
-
-Analytical Readiness:
-
-Structured data into a star schema, enabling efficient analytics and reporting.
-
-Showcasing Job Readiness
-
-Real-World Skills:
-
-Tackled real-world scenarios such as incremental data loading, data governance, and dimensional modeling.
-
-Scalable Solutions:
-
-Designed pipelines suitable for production environments, demonstrating attention to scalability and automation.
-
-Modern Tools:
-
-Leveraged industry-standard tools like Delta Lake, Unity Catalog, and Databricks for advanced data engineering tasks.
-
-Outcome-Oriented:
-
-Delivered actionable insights by integrating the pipeline with Power BI for business visualization.
-
-This project underscores my ability to independently design and execute complex data engineering workflows, making me job-ready for challenging roles in the industry.
+This project underscores my ability to independently design and implement scalable data engineering workflows, proving my readiness for dynamic and challenging roles in the industry.
 
